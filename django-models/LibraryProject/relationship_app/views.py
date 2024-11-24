@@ -54,7 +54,7 @@ class RegisterView(View):
     
 # Role check functions
 def is_admin(user):
-    return user.userprofile.role == 'Admin'
+    return user.is_authenticated and user.userprofile.role == 'Admin'
 
 def is_librarian(user):
     return user.userprofile.role == 'Librarian'
