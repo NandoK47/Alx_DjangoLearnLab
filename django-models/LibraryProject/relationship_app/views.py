@@ -41,7 +41,7 @@ class LogoutView(View):
 class RegisterView(View):
     def get(self, request):
         form = UserCreationForm()
-        return render(request, 'register.html', {'form': form})
+        return render(request, 'relationship_app/register.html', {'form': form})
 
     def post(self, request):
         form = UserCreationForm(request.POST)
