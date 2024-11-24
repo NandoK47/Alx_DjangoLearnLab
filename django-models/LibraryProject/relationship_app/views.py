@@ -67,7 +67,11 @@ def librarian_view(request):
 
 
 def is_member(user):
-    return user.userprofile.role == 'Member'
+    return user.is_authenticated and user.userprofile.role == 'Member'
+@user_passes_test(is_member, login_url='/login/')  # Redirect unauthorized users to login
+def member_view(request):
+    return render(request, 'member_view.html', {'user': request.user})
+
 
 # Admin view
 @user_passes_test(is_admin)
