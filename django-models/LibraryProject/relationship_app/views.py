@@ -60,7 +60,11 @@ def admin_view(request):
     return render(request, 'admin_view.html', {'user': request.user})
 
 def is_librarian(user):
-    return user.userprofile.role == 'Librarian'
+     return user.is_authenticated and user.userprofile.role == 'Librarian'
+@user_passes_test(is_librarian, login_url='/login/')  # Redirect unauthorized users to login
+def librarian_view(request):
+    return render(request, 'librarian_view.html', {'user': request.user})
+
 
 def is_member(user):
     return user.userprofile.role == 'Member'
