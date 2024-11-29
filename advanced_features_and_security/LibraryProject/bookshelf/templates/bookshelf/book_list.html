@@ -1,0 +1,27 @@
+t.html Template
+Here's an example template to display a list of books:
+
+html
+Copy code
+<!-- book_list.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book List</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">  <!-- Optional CSS link -->
+</head>
+<body>
+    <h1>Book List</h1>
+
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} by {{ book.author }} ({{ book.published_date }})</li>
+        {% empty %}
+            <li>No books available.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'add_book' %}">Add a New Book</a>
+</body>
+</html>
