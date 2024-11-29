@@ -2,8 +2,15 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import permission_required
 from .models import Article
 from .models import Book
+from django.db.models import Q
+from django.http import HttpResponse
 
 # Create your views here.
+
+def secure_view(request):
+    response = HttpResponse("<h1>Secure Content</h1>")
+    response['Content-Security-Policy'] = "default-src 'self'; script-src 'self';"
+    return response
 
 def book_list(request):
     books = Book.objects.all()
@@ -43,3 +50,5 @@ def delete_book(request, pk):
         return redirect('book_list')
     return render(request, 'delete_book.html', {'book': book})
 
+# Safe, parameterized query using Django ORM
+book = Book.objects.filter(Q(title__icontains='user_input'))
