@@ -20,12 +20,12 @@ def book_list(request):
 @permission_required('bookshelf.can_add_book', raise_exception=True)
 def add_book(request):
     if request.method == 'POST':
-        form = 'BookForm'(request.POST)
+        form = 'ExampleForm'(request.POST)
         if form.is_valid():
             form.save()
             return redirect('book_list')
     else:
-        form = 'BookForm'()
+        form = 'ExampleForm'()
     return render(request, 'add_book.html', {'form': form})
 
 # View to edit an existing book (requires permission)
