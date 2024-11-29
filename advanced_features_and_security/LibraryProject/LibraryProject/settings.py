@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-e#hygybtwvlp3(g534l_#n4oa65d_q3@h(qetsj*3k2%ugw5-2
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 SECURE_SSL_REDIRECT = True
-
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Enable HTTP Strict Transport Security (HSTS)
 SECURE_HSTS_SECONDS = 31536000  # 1 year in seconds
 SECURE_HSTS_INCLUDE_SUBDOMAINS = True
