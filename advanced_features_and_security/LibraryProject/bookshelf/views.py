@@ -4,6 +4,7 @@ from .models import Article
 from .models import Book
 from django.db.models import Q
 from django.http import HttpResponse
+from .forms import ExampleForm 
 
 # Create your views here.
 
