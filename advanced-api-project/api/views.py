@@ -6,9 +6,9 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import BasePermission
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import SearchFilter
+from rest_framework.filters import SearchFilter, OrderingFilter
 from django_filters import rest_framework
-from rest_framework.filters import OrderingFilter
+from rest_framework.generics import ListAPIView
 
 # Create your views here.
 
