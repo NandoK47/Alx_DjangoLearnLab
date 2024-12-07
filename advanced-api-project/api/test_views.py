@@ -10,7 +10,8 @@ from .serializers import BookSerializer
 from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import BasePermission
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
-
+from rest_framework.test import APITestCase
+from rest_framework import status
 
 # Create your views here.
 
@@ -50,3 +51,10 @@ class IsAdminOrReadOnly(BasePermission):
         if request.method in ['GET', 'HEAD', 'OPTIONS']:
             return True
         return request.user and request.user.is_staff
+     
+class BookTests(APITestCase):
+    def test_create_book(self):
+        url = '/api/books/'  # Replace with your API endpoint
+        data = {'title': 'Test Book', 'published_date': '2024-01-01'}
+        response = self.client.post(url, data, format='json')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
