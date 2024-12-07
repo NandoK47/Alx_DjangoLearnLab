@@ -14,10 +14,10 @@ class TestBookAPI(TestCase):
         self.book_url = '/api/books/' 
 
         self.author1 = Author.objects.create(name='Author A')
-        self.author2 = Author.objects.create(Name='Author B')
+        self.author2 = Author.objects.create(name='Author B')
 
-        self.book1 = Book.objects.create(title='Book One', author='Author A', published_date='2023-01-01')
-        self.book2 = Book.objects.create(title='Book Two', author='Author B', published_date='2023-02-01')
+        self.book1 = Book.objects.create(title='Book One', author=self.author1, published_date='2023-01-01')
+        self.book2 = Book.objects.create(title='Book Two', author=self.author2, published_date='2023-02-01')
 
     def test_create_book(self):
         data = {'title': 'New Book', 'author': 'self.author1.id', 'published_date': '2024-01-01'}
