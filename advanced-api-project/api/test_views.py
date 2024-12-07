@@ -12,6 +12,7 @@ from rest_framework.permissions import BasePermission
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from rest_framework.test import APITestCase
 from rest_framework import status
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -53,10 +54,22 @@ class IsAdminOrReadOnly(BasePermission):
         return request.user and request.user.is_staff
      
 class BookTests(APITestCase):
-    def test_create_book(self):
-        url = '/api/books/'  # Replace with your API endpoint
+    def test_create_book_authenticated(self):
+        self.client.liogin(username='testuser', password='testpassword')
+        url = '/api/books/'
         data = {'title': 'Test Book', 'published_date': '2024-01-01'}
         response = self.client.post(url, data, format='json')
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(response.data['title'], 'Test Book')
         self.assertEqual(response.data['published_date'], '2024-01-01')
+        
+        def test_create_book_unauthenticated(self):
+        # Make the POST request without logging in
+        
+         url = '/api/books/'
+        data = {'title': 'Test Book', 'published_date': '2024-01-01'}
+        
+        response = self.client.post(url, data, format='json')
+        
+        # Check that authentication is required (e.g., HTTP 401 Unauthorized)
+        self.assertEqual(response.status_code, status.HTTP_401_UNAUTHORIZED)
