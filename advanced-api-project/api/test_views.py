@@ -55,7 +55,7 @@ class IsAdminOrReadOnly(BasePermission):
      
 class BookTests(APITestCase):
     def test_create_book_authenticated(self):
-        self.client.liogin(username='testuser', password='testpassword')
+        self.client.login(username='testuser', password='testpassword')
         url = '/api/books/'
         data = {'title': 'Test Book', 'published_date': '2024-01-01'}
         response = self.client.post(url, data, format='json')
