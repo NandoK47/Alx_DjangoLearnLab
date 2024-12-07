@@ -6,7 +6,7 @@ from rest_framework.exceptions import ValidationError
 from rest_framework.permissions import BasePermission
 from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.filters import OrderingFilter
+from rest_framework.filters import OrderingFilter, SearchFilter
 from django_filters import rest_framework
 from rest_framework.generics import ListAPIView
 
@@ -18,7 +18,7 @@ class BookListView(generics.ListAPIView):
      filter_backends = [DjangoFilterBackend, OrderingFilter]
      filter_fields = ['title', 'author_name', 'publication_year']
      search_fields = ['title', 'author_name']
-     ordering_fields = ['title', 'publication_year']
+     OrderingFilter = ['title', 'publication_year']
      
 class BookDetailView(generics.RetrieveAPIView):
      queryset = Book.objects.all()
