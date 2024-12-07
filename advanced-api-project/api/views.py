@@ -15,10 +15,10 @@ from rest_framework.generics import ListAPIView
 class BookListView(generics.ListAPIView):
      queryset = Book.objects.all()
      serializer_class = BookSerializer
-     filter_backends = [DjangoFilterBackend, OrderingFilter]
+     filter_backends = [DjangoFilterBackend, OrderingFilter, SearchFilter]
      filter_fields = ['title', 'author_name', 'publication_year']
      search_fields = ['title', 'author_name']
-     OrderingFilter = ['title', 'publication_year']
+     ordering_fields = ['title', 'author_name']
      
 class BookDetailView(generics.RetrieveAPIView):
      queryset = Book.objects.all()
