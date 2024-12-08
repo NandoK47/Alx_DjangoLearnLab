@@ -1,0 +1,15 @@
+body {
+    background-color: #e6f7ff;
+    font-family: Arial, sans-serif;
+}
+h1 {
+    color: #00509e;
+}
+form {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 20px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
