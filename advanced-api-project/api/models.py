@@ -12,9 +12,9 @@ class Author(models.Model):
 class Book(models.Model):
     title = models.CharField(max_length=255)
     author = models.ForeignKey(Author, related_name='books', on_delete=models.CASCADE)
-    published_date = models.DateField(default=timezone.now)
+    publication_year = models.DateField(default=timezone.now)
     def __str__(self):
-        return f"{self.title} ({self.published_date})"
+        return f"{self.title} ({self.publication_year})"
 
 class MyModel(models.Model):
     my_date_field = models.DateField(default=timezone.now)
