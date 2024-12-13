@@ -9,6 +9,7 @@ from .forms import CustomUserCreationForm
 from django.shortcuts import get_object_or_404, redirect, render
 from .forms import CommentForm, PostForm
 from django.http import HttpResponseForbidden
+from django.db.models import Q
 
 # Create your views here.
 
@@ -151,4 +152,12 @@ class CommentDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('post_detail', kwargs={'post_id': self.object.post.id})
-    
+
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/posts_by_tag.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs['tag_slug']
+        return Post.objects.filter(tags__slug=tag_slug)
