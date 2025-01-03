@@ -6,7 +6,6 @@ from .models import CustomUser
 from .serializers import CustomUserSerializer
 from rest_framework import status
 
-
 # Create your views here.
 
 class RegisterView(APIView):
