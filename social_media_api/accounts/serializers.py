@@ -14,12 +14,10 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ['id','username', 'email', 'bio', 'profile_picture', 'followers']
 
     def create(self, validated_data):
-        user = get_user_model.objects.create_user(
-            username=validated_data['username'],
-            email=validated_data.get('email'),
-            password=validated_data['password'],
-            bio=validated_data.get('bio', ''),
-            profile_picture=validated_data.get('profile_picture', None)
-        )
-        Token.objects.create(user=user)
+        
+        password = validated_data.pop('password')
+        user = get_user_model().objects.create_user(**validated_data)
+        user.set_password(password)
+        user.save()
         return user
+
