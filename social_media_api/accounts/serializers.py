@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 from rest_framework.authtoken.models import Token
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate
+from .models import CustomUser
 
 # Get the custom user model
 
@@ -24,4 +25,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
         token, created = Token.objects.create()
         user.save()
         return user
+
+class FollowSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CustomUser
+        fields = ['id', 'username', 'following', 'followers']
     
