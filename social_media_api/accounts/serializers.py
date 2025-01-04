@@ -24,20 +24,4 @@ class CustomUserRegistrationSerializer(serializers.ModelSerializer):
         token, created = Token.objects.create()
         user.save()
         return user
-
-class CustomUserLoginSerializer(serializers.Serializer):
-    username = serializers.CharField()
-    password = serializers.CharField(write_only=True)
-    token = serializers.CharField(read_only=True)
-
-    def validate(self, data):
-        username = data.get('username')
-        password = data.get('password')
-        user = authenticate(username=username, password=password)
-
-        if user is None:
-            raise serializers.ValidationError("Invalid credentials")
-        
-        token, created = Token.objects.get_or_create()
-        data['token'] = token.key
-        return data
+    
