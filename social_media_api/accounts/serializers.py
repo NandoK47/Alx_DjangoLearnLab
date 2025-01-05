@@ -27,6 +27,9 @@ class CustomUserSerializer(serializers.ModelSerializer):
         return user
 
 class FollowSerializer(serializers.ModelSerializer):
+    followers = serializers.StringRelatedField(many=True)
+    following = serializers.StringRelatedField(many=True)
+
     class Meta:
         model = CustomUser
         fields = ['id', 'username', 'following', 'followers']
