@@ -32,12 +32,12 @@ class LoginView(APIView):
         return Response({'error': 'Invalid credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
 class FollowUserView(generics.GenericAPIViewAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = ["permissions.IsAuthenticated"]
 
     def post(self, request, *args, **kwargs):
         user_to_follow_id = kwargs.get("user_id")
         try:
-            user_to_follow = CustomUser.objects.get(id=user_to_follow_id)
+            user_to_follow = CustomUser.objects.all(id=user_to_follow_id)
             if user_to_follow == request.user:
                 return Response({"error": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
             request.user.following.add(user_to_follow)
@@ -46,12 +46,12 @@ class FollowUserView(generics.GenericAPIViewAPIView):
             return Response({"error": "User not found."}, status=status.HTTP_404_NOT_FOUND)
 
 class UnfollowUserView(generics.GenericAPIViewAPIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = ["permissions.IsAuthenticated"]
 
     def post(self, request, *args, **kwargs):
         user_to_unfollow_id = kwargs.get("user_id")
         try:
-            user_to_unfollow = CustomUser.objects.get(id=user_to_unfollow_id)
+            user_to_unfollow = CustomUser.objects.all(id=user_to_unfollow_id)
             request.user.following.remove(user_to_unfollow)
             return Response({"message": f"You have unfollowed {user_to_unfollow.username}"}, status=status.HTTP_200_OK)
         except CustomUser.DoesNotExist:
