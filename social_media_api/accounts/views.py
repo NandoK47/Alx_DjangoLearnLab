@@ -37,7 +37,7 @@ class FollowUserView(generics.GenericAPIViewAPIView):
     def post(self, request, *args, **kwargs):
         user_to_follow_id = kwargs.get("user_id")
         try:
-            user_to_follow = CustomUser.objects.all(id=user_to_follow_id)
+            user_to_follow = CustomUser.objects.all()
             if user_to_follow == request.user:
                 return Response({"error": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
             request.user.following.add(user_to_follow)
@@ -51,7 +51,7 @@ class UnfollowUserView(generics.GenericAPIViewAPIView):
     def post(self, request, *args, **kwargs):
         user_to_unfollow_id = kwargs.get("user_id")
         try:
-            user_to_unfollow = CustomUser.objects.all(id=user_to_unfollow_id)
+            user_to_unfollow = CustomUser.objects.all()
             request.user.following.remove(user_to_unfollow)
             return Response({"message": f"You have unfollowed {user_to_unfollow.username}"}, status=status.HTTP_200_OK)
         except CustomUser.DoesNotExist:
