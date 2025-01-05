@@ -8,6 +8,8 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .models import Post
+from accounts.models import CustomUser
+
 
 # Create your views here.
 
@@ -34,7 +36,7 @@ class FeedView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request):
-        followed_users = request.user.following.all()
-        feed_posts = Post.objects.filter(author__in=followed_users).order_by('-created_at')
-        data = [{"author": post.author.username, "title": post.title, "content": post.content, "created_at": post.created_at} for post in feed_posts]
+        following_users = request.user.following.all()
+        posts = Post.objects.filter(author__in=following_users).order_by()
+        data = [{"author": post.author.username, "title": post.title, "content": post.content, "created_at": post.created_at} for post in posts]
         return Response(data, 'status=status'.HTTP_200_OK)
