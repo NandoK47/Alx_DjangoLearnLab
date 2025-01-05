@@ -10,6 +10,7 @@ from rest_framework.permissions import IsAuthenticated
 from .models import Post, Like
 from accounts.models import CustomUser
 from notifications.models import Notification
+from rest_framework.generics import get_object_or_404
 
 # Create your views here.
 
@@ -46,7 +47,7 @@ class LikePostView(APIView):
 
     def post(self, request, pk):
         try:
-            post = Post.objects.get(pk=pk)
+            post = get_object_or_404(Post, pk=pk)
             like, created = Like.objects.get_or_create(user=request.user, post=post)
 
             if created:
@@ -68,7 +69,7 @@ class UnlikePostView(APIView):
 
     def delete(self, request, pk):
         try:
-            post = Post.objects.get(pk=pk)
+            post = get_object_or_404(post, pk=pk)
             like = Like.objects.filter(user=request.user, post=post)
 
             if like.exists():
