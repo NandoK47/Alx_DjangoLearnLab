@@ -1,0 +1,5 @@
+django
+django rest_framework
+django rest_framework-simplejwt
+django-filters
+psycogp2-binary
